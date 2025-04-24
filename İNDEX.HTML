@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>1000 Kelime Yanıp Sönme Egzersizi</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f6f8;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #0d6efd;
+    }
+    #wordDisplay {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 60px 0;
+      height: 60px;
+    }
+    #controls {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>1000 Kelime Yanıp Sönme Egzersizi</h1>
+  <p>Görünen kelimeye odaklan ve ardından geleni bekle. Hızını ayarlayabilirsin.</p>
+  <div id="wordDisplay"></div>
+
+  <div id="controls">
+    Hız: <input type="range" id="speedSlider" min="100" max="2000" value="600" step="100">
+    <span id="speedValue">600</span> ms/kelime
+  </div>
+
+  <script>
+    const words = [
+      "ve", "bir", "bu", "ne", "çok", "da", "ben", "sen", "biz", "siz", "onlar", "gibi", "ama", "diye", "ile", "için",
+      "ya", "mı", "mu", "mi", "de", "şu", "hep", "neden", "nasıl", "çünkü", "hayır", "evet", "daha", "az", "fazla",
+      "zaman", "iş", "yer", "okul", "ev", "el", "göz", "yüz", "gün", "gece", "sabah", "akşam", "kitap", "kalem", "masa",
+      "su", "yemek", "oyun", "çocuk", "baba", "anne", "kardeş", "dost", "arkadaş", "kalp", "umut", "yaşam", "sevgi",
+      "saygı", "mutluluk", "üzüntü", "düşünce", "hayal", "hedef", "gelecek", "geçmiş", "bugün", "yarın", "hafta",
+      "ay", "yıl", "saat", "dakika", "an", "bak", "gör", "bil", "anla", "oku", "yaz", "çiz", "oyna", "git", "gel",
+      "kalk", "otur", "dur", "başla", "bitir", "sev", "sor", "cevap", "al", "ver", "bul", "koş", "yürü", "dön"
+    ];
+
+    let index = 0;
+    const wordDisplay = document.getElementById("wordDisplay");
+    const speedSlider = document.getElementById("speedSlider");
+    const speedValue = document.getElementById("speedValue");
+
+    let speed = parseInt(speedSlider.value);
+
+    speedSlider.addEventListener("input", () => {
+      speed = parseInt(speedSlider.value);
+      speedValue.textContent = speed;
+      restartInterval();
+    });
+
+    let intervalId;
+    function showNextWord() {
+      wordDisplay.textContent = words[index];
+      index = (index + 1) % words.length;
+    }
+
+    function restartInterval() {
+      clearInterval(intervalId);
+      intervalId = setInterval(showNextWord, speed);
+    }
+
+    restartInterval();
+  </script>
+</body>
+</html>
